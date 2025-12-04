@@ -73,7 +73,7 @@ make clean             # Clean cache files
 
 ## 👨‍💻 Author
 
-YOUR_NAME
+Anjani Samhitha Jasti
 
 ## 📝 License
 
