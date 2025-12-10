@@ -1,0 +1,24 @@
+# Core
+pandas
+numpy
+scipy
+
+# Notebooks / kernel
+ipykernel
+jupyter
+
+# Visualization
+matplotlib
+seaborn
+
+# Machine learning
+scikit-learn
+imbalanced-learn
+lightgbm
+xgboost
+
+# Explainability
+shap
+
+# Model persistence
+joblib
