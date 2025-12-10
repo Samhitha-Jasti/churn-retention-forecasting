@@ -21,6 +21,7 @@ __pycache__/
 env/
 venv/
 ENV/
+churn_env/
 build/
 develop-eggs/
 dist/
