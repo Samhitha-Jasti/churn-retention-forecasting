@@ -5,7 +5,7 @@ _Date generated: 2025-12-29 18:39_
 ## 1. Dataset Overview
 - Source: training dataset for churn prediction.
 - Target column: `Churn` (1 = churned, 0 = retained).
-- Number of rows / columns: 440833 rows, 12 columns.
+- Number of rows / columns: 440832 rows, 12 columns.
 
 ## 2. Key Univariate Insights
 - Age, Tenure, Usage Frequency, Total Spend, Payment Delay, Support Calls, Last Interaction show reasonable ranges and no extreme outliers.
