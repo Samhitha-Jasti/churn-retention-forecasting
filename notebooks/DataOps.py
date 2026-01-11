@@ -30,3 +30,9 @@ data.drop('CustomerID', axis=1, inplace=True)
 
 # %% [markdown]
 # Feature encoding (creating new columns) - skipping for now
+
+# %% [markdown]
+# One-hot encoding all the categorical columns
+
+# %% [markdown]
+# test
