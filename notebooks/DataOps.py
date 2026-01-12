@@ -36,3 +36,53 @@ data.drop('CustomerID', axis=1, inplace=True)
 
 # %% [markdown]
 # test
+
+# %%
+import pandas as pd
+from sklearn.preprocessing import OneHotEncoder
+
+# 1. Define categorical columns
+categorical_cols = ['Gender', 'Subscription Type', 'Contract Length']
+
+# 2. Fit encoder on these columns
+encoder = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
+
+one_hot_encoded = encoder.fit_transform(data[categorical_cols])
+
+# 3. Turn encoded array into DataFrame
+one_hot_df = pd.DataFrame(
+    one_hot_encoded,
+    columns=encoder.get_feature_names_out(categorical_cols),
+    index=data.index   # keep same index so concat is safe
+)
+
+# 4. Drop original categorical columns and concat encoded ones
+data_encoded = pd.concat(
+    [data.drop(categorical_cols, axis=1), one_hot_df],
+    axis=1
+)
+data_encoded
+
+# %%
+# Select only numerical columns (excluding the target 'Churn' if it's there)
+numerical_cols = ['Age', 'Tenure', 'Usage Frequency', 'Support Calls', 
+                  'Payment Delay', 'Total Spend', 'Last Interaction']
+
+# Calculate skewness
+skew_values = data[numerical_cols].skew().sort_values(ascending=False)
+
+print("Skewness Coefficients:")
+print(skew_values)
+
+# %% [markdown]
+# How to Interpret the Numbers:
+#
+# -0.5 to 0.5: Symmetric (Normal enough). Action: No transformation needed. MinMax Scaling is fine.
+#
+# -1 to -0.5 OR 0.5 to 1: Moderately Skewed. Action: Consider Log Transform, but often robust enough to ignore.
+#
+# < -1 OR > 1: Highly Skewed. Action: Must Fix (Log Transform or Box-Cox).
+
+# %%
+import seaborn as sns
+sns.boxplot(x=data['Support Calls'])
