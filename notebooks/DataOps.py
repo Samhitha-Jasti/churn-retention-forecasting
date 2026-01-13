@@ -86,3 +86,33 @@ print(skew_values)
 # %%
 import seaborn as sns
 sns.boxplot(x=data['Support Calls'])
+
+# %% [markdown]
+# All the columns do not appear to be skewed so ignoring any transformations for now 
+
+# %%
+from sklearn.preprocessing import MinMaxScaler
+one_hot_cols = [col for col in data_encoded.columns if col not in numerical_cols and col != 'Churn']
+
+# Target column
+target_col = 'Churn'
+scaler = MinMaxScaler()
+
+# Scale and convert back to DataFrame to preserve column names
+data_encoded[numerical_cols] = scaler.fit_transform(data_encoded[numerical_cols])
+final_data = data_encoded.copy()
+final_data
+
+# %%
+print("✓ Final Data Shape:", final_data.shape)
+print("\nColumn Names:")
+print(final_data.columns.tolist())
+
+print("\nData Types:")
+print(final_data.dtypes)
+
+print("\nFirst 5 rows:")
+print(final_data.head())
+
+print("\nNumerical columns (should be 0-1):")
+print(final_data[numerical_cols].describe())
