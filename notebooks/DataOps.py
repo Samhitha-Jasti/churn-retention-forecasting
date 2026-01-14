@@ -116,3 +116,8 @@ print(final_data.head())
 
 print("\nNumerical columns (should be 0-1):")
 print(final_data[numerical_cols].describe())
+
+# %%
+final_data.to_csv(r'C:\Users\asjas\OneDrive\Documents\Docker projects\churn-retention-forecasting\data\processed\final_data_processed.csv', index=False)
+
+print("✓ Saved to: data/processed/final_data_processed.csv")
