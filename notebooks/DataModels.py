@@ -30,6 +30,8 @@ final_data
 from sklearn.preprocessing import OneHotEncoder, MinMaxScaler
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 data_path = r'C:\Users\asjas\OneDrive\Documents\Docker projects\churn-retention-forecasting\data\processed\final_data_processed.csv'
@@ -59,3 +61,16 @@ val_accuracy = accuracy_score(y_val, y_pred_val)
 print(f"\nValidation Accuracy: {val_accuracy:.4f}")
 print(f"Validation Precision: {precision_score(y_val, y_pred_val):.4f}")
 print(f"Validation Recall: {recall_score(y_val, y_pred_val):.4f}")
+
+# %%
+print("Training Random Forest...")
+rf = RandomForestClassifier(n_estimators=100, random_state=42, n_jobs=-1)
+rf.fit(X_train, y_train)
+y_pred_rf = rf.predict(X_val)
+models['Random Forest'] = {
+    'model': rf,
+    'accuracy': accuracy_score(y_val, y_pred_rf),
+    'precision': precision_score(y_val, y_pred_rf),
+    'recall': recall_score(y_val, y_pred_rf),
+    'f1': f1_score(y_val, y_pred_rf)
+}
