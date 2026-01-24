@@ -51,18 +51,22 @@ X_train, X_val, y_train, y_val = train_test_split(
 print(f"Train set: {X_train.shape[0]} rows")
 print(f"Validation set: {X_val.shape[0]} rows")
 
-
-model = LogisticRegression(max_iter=1000, random_state=42)
-model.fit(X_train, y_train)
-
-y_pred_val = model.predict(X_val)
-val_accuracy = accuracy_score(y_val, y_pred_val)
-
-print(f"\nValidation Accuracy: {val_accuracy:.4f}")
-print(f"Validation Precision: {precision_score(y_val, y_pred_val):.4f}")
-print(f"Validation Recall: {recall_score(y_val, y_pred_val):.4f}")
-
 # %%
+models = {}
+# Model 1: Logistic Regression
+print("Training Logistic Regression...")
+lr = LogisticRegression(max_iter=1000, random_state=42)
+lr.fit(X_train, y_train)
+y_pred_lr = lr.predict(X_val)
+models['Logistic Regression'] = {
+    'model': lr,
+    'accuracy': accuracy_score(y_val, y_pred_lr),
+    'precision': precision_score(y_val, y_pred_lr),
+    'recall': recall_score(y_val, y_pred_lr),
+    'f1': f1_score(y_val, y_pred_lr)
+}
+
+# Model 2: Random Forest
 print("Training Random Forest...")
 rf = RandomForestClassifier(n_estimators=100, random_state=42, n_jobs=-1)
 rf.fit(X_train, y_train)
@@ -74,3 +78,31 @@ models['Random Forest'] = {
     'recall': recall_score(y_val, y_pred_rf),
     'f1': f1_score(y_val, y_pred_rf)
 }
+
+# Model 3: XGBoost
+print("Training XGBoost...")
+xgb = XGBClassifier(random_state=42, n_jobs=-1)
+xgb.fit(X_train, y_train)
+y_pred_xgb = xgb.predict(X_val)
+models['XGBoost'] = {
+    'model': xgb,
+    'accuracy': accuracy_score(y_val, y_pred_xgb),
+    'precision': precision_score(y_val, y_pred_xgb),
+    'recall': recall_score(y_val, y_pred_xgb),
+    'f1': f1_score(y_val, y_pred_xgb)
+}
+
+# %%
+#Compare all models
+comparison = pd.DataFrame(models).T
+print("\n" + "="*60)
+print("MODEL COMPARISON (on Validation Set)")
+print("="*60)
+print(comparison)
+
+# Find best model
+best_model_name = comparison['f1'].idxmax()
+best_model = models[best_model_name]['model']
+
+print(f"\n✅ BEST MODEL: {best_model_name}")
+print(f"   F1-Score: {models[best_model_name]['f1']:.4f}")
