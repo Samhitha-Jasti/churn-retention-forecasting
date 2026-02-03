@@ -121,3 +121,22 @@ print(final_data[numerical_cols].describe())
 final_data.to_csv(r'C:\Users\asjas\OneDrive\Documents\Docker projects\churn-retention-forecasting\data\processed\final_data_processed.csv', index=False)
 
 print("✓ Saved to: data/processed/final_data_processed.csv")
+
+# %%
+# %%
+import pickle
+import os
+
+# Create models folder (if doesn't exist)
+os.makedirs('models', exist_ok=True)
+
+# Save encoder
+with open('models/encoder.pkl', 'wb') as f:
+    pickle.dump(encoder, f)
+
+# Save scaler
+with open('models/scaler.pkl', 'wb') as f:
+    pickle.dump(scaler, f)
+
+print("✅ Encoder saved to: models/encoder.pkl")
+print("✅ Scaler saved to: models/scaler.pkl")
