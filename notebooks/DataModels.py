@@ -106,3 +106,15 @@ best_model = models[best_model_name]['model']
 
 print(f"\n✅ BEST MODEL: {best_model_name}")
 print(f"   F1-Score: {models[best_model_name]['f1']:.4f}")
+
+# %%
+import pickle
+import os
+
+os.makedirs('models', exist_ok=True)
+
+model_filename = f'models/best_model_{best_model_name.replace(" ", "_")}.pkl'
+with open(model_filename, 'wb') as f:
+    pickle.dump(best_model, f)
+
+print(f"\n✅ Best model saved to: {model_filename}")
