@@ -2,7 +2,7 @@
 
 A machine learning project to predict customer churn and identify retention strategies using Amazon reviews dataset.
 
-## 📊 Business Problem
+## Business Problem
 
 **Objective**: An e‑commerce marketplace like Amazon wants to reduce customer churn and increase repeat purchases in categories such as Electronics and Beauty.
 
@@ -14,8 +14,6 @@ A machine learning project to predict customer churn and identify retention stra
 **KPIs**: Precision@K, Recall@K, MAP, CTR uplift, Retention rate
 
 **Problem statement**: Given a user’s past interactions (ratings, review text, categories, recency/frequency), predict their churn risk and recommend products or offers that maximize the chance they stay active.
-
-## 🚀 Quick Start
 
 ### Prerequisites
 - Docker Desktop installed
